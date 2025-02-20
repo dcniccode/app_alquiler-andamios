@@ -4,7 +4,7 @@ body {
     background: linear-gradient(to bottom, #cceef0, rgba(252, 255, 253, 0.6), #a3e5ed), url('/static/images/andamios-1.jpg') no-repeat center center;
     /*background: url('/static/images/andamios-2.jpg') no-repeat center center, linear-gradient(to bottom, #cceef0, #decfcf, #a3e5ed);*/
     background-size: cover; /* Asegura que la imagen de fondo cubra todo el espacio */
-    height: 100vh;
+    height: 100%;
     position: relative; /* Asegura que los elementos de fondo no se vean sobrepuestos */
     z-index: -1; /* Asegura que el fondo esté detrás del contenido */
 }
