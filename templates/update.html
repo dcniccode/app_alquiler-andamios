@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Andamios ACC</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Actualizar Datos del Cliente</h1>
+
+    <div class="form">
+        <form action="{{ url_for('editar_cliente', id=cliente.id) }}" method="POST">
+
+            <div>
+                <label>DNI:</label>
+                <input type="text" name="dni" value="{{ cliente.dni }}">
+            </div>
+
+            <div>
+                <label>Nombre:</label>
+                <input type="text" name="nombre" value="{{ cliente.nombre }}">
+            </div>
+
+            <div>
+                <label>Apellido:</label>
+                <input type="text" name="apellido" value="{{ cliente.apellido }}">
+            </div>
+
+            <div>
+                <label>Teléfono:</label>
+                <input type="text" name="telefono" value="{{ cliente.telefono }}">
+            </div>
+
+            <div>
+                <label>Fecha de Registro:</label>
+                <input type="date" name="fecha_registro" value="{{ cliente.fecha_registro }}">
+            </div>
+
+            <div>
+                <label>Número de días:</label>
+                <input type="number" name="dias" value="{{ cliente.dias }}">
+            </div>
+
+            <input type="submit" value="Actualizar Cliente">
+        </form>
+    </div>
+    <a href="/">
+        <button>Volver al inicio</button>
+    </a>
+</div>
+{% endblock %}

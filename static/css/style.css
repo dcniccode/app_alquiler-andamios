@@ -1,0 +1,198 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: linear-gradient(to bottom, #cceef0, rgba(252, 255, 253, 0.6), #a3e5ed), url('/static/images/andamios-1.jpg') no-repeat center center;
+    /*background: url('/static/images/andamios-2.jpg') no-repeat center center, linear-gradient(to bottom, #cceef0, #decfcf, #a3e5ed);*/
+    background-size: cover; /* Asegura que la imagen de fondo cubra todo el espacio */
+    height: 100vh;
+    position: relative; /* Asegura que los elementos de fondo no se vean sobrepuestos */
+    z-index: -1; /* Asegura que el fondo esté detrás del contenido */
+}
+
+h1 {
+    color: cadetblue;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: "Cantarell Extra Bold";
+    font-size: 40px;
+}
+
+.content {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+    flex-direction: column; /* Apila los elementos en columna */
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black; /* Agrega un borde negro */
+    padding: 6px; /* Espaciado dentro de cada celda */
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+button {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: medium;
+}
+
+.boton {
+    display: inline-block;
+    padding: 5px 10px;
+    background: rgba(96, 170, 11, 0.95);
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 4px;
+    color: white;
+}
+
+.boton:hover {
+    background: rgba(108, 189, 22, 0.83);
+}
+
+.boton-rojo {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 4px;
+    border-radius: 5px;
+    background: #f44336;
+    cursor: pointer;
+    font-size: medium;
+    color: white;
+}
+.boton-rojo:hover {
+    background: #e66b63;
+}
+
+
+/* Estilo para el contenedor del formulario */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form div {
+    margin-bottom: 20px;  /* Aumenta el margen inferior entre los campos */
+}
+
+/* Estilo para las etiquetas (labels) */
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left; /* Asegura que las etiquetas se alineen a la izquierda */
+}
+
+/* Estilo para los campos de entrada (inputs) */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Centrar solo el botón primario */
+.form div:last-child {
+    text-align: center; /* Centra solo el contenido del último div (el que contiene el botón) */
+}
+
+.btn-primary {
+    padding: 12px;
+    background-color: #4CAF50; /* Color verde */
+    color: white; /* Color del texto */
+    border: none;
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+    cursor: pointer;
+    margin: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #45a049; /* Sombra más oscura en hover */
+}
+
+/* Estilo para el botón de "Volver al inicio" */
+a button {
+    width: 100%;
+    padding: 12px;
+    background-color: #364cf4; /* Color rojo */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px; /* Espacio superior */
+}
+
+a button:hover {
+    background-color: #1a2eb7; /* Sombra más oscura en hover */
+}
+
+/* Estilo para los campos de entrada (inputs) */
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Estilo para el botón de envío */
+input[type="submit"] {
+    display: block;
+    width: 50%;
+    margin: 10px;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.boton-index {
+    width: 100%;
+    padding: 12px;
+    background-color: #3688f4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px; /* Espacio superior */
+}
+
+.boton-index:hover {
+    background-color: #1a2eb7;
+}

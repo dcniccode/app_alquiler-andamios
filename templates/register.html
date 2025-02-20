@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Andamios ACC</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Registro de Cliente</h1>
+
+    <div class="form">
+        <form method="POST">
+            <!-- Flask-WTF se encarga del token CSRF -->
+            {{ form.hidden_tag() }}
+
+            <!-- Campo de DNI -->
+            <div>
+                <label for="dni">DNI:</label>
+                {{ form.dni(class="form-control") }}
+            </div>
+
+            <!-- Campo de nombre -->
+            <div>
+                <label for="nombre">Nombre:</label>
+                {{ form.nombre(class="form-control") }}
+            </div>
+
+            <!-- Campo de apellido -->
+            <div>
+                <label for="apellido">Apellido:</label>
+                {{ form.apellido(class="form-control") }}
+            </div>
+
+            <!-- Campo de teléfono -->
+            <div>
+                <label for="telefono">Teléfono:</label>
+                {{ form.telefono(class="form-control") }}
+            </div>
+
+            <!-- Campo de días -->
+            <div>
+                <label for="dias">Días a alquilar:</label>
+                {{ form.dias(class="form-control") }}
+            </div>
+
+            <!-- Botón de envío -->
+            <div>
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+    <a href="/">
+        <button>Volver al inicio</button>
+    </a>
+</div>
+{% endblock %}

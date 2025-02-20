@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Andamios ACC</title>
+{% endblock %}
+
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <h1>Alquiler de Andamios</h1>
+    <div class="content">
+        <a href="/registrar_cliente">
+            <button class="boton-index">Agregar Cliente</button>
+        </a>
+        <a href="/clientes">
+            <button class="boton-index">Ver Clientes</button>
+        </a>
+    </div>
+{% endblock %}
+

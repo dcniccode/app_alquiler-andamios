@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Andamios ACC</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Lista de Clientes</h1>
+    {% if clientes|length < 1 %}
+        <h4>No hay clientes registrados.</h4>
+    {% else %}
+        <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Teléfono</th>
+            <th>Fecha de Registro</th>
+            <th>Fecha de Entrega</th>
+            <th>Acciones</th>
+        </tr>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>{{ cliente.dni }}</td>
+            <td>{{ cliente.telefono }}</td>
+            <td>{{ cliente.fecha_registro.strftime('%d-%m-%Y') }}</td>
+            <td>{{ cliente.fecha_entrega.strftime('%d-%m-%Y') }}</td>
+            <td>
+                <a href="{{ url_for('editar_cliente', id=cliente.id) }}" class="boton">Editar</a>
+                <form action="{{ url_for('eliminar_cliente', id=cliente.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="boton-rojo">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <a href="/">
+        <button>Volver al inicio</button>
+    </a>
+</div>
+{% endblock %}
