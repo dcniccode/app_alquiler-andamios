@@ -1,4 +1,11 @@
+html, body {
+    height: 100vh; /* Hace que el fondo cubra toda la pantalla */
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    background-attachment: fixed;
     margin: 0;
     font-family: sans-serif;
     background: linear-gradient(to bottom, #cceef0, rgba(252, 255, 253, 0.6), #a3e5ed), url('/static/images/andamios-1.jpg') no-repeat center center;
@@ -76,9 +83,11 @@ button {
 /* Estilo para el contenedor del formulario */
 .form {
     display: flex;
+    overflow-y: auto; /* Agrega scroll interno si es necesario */
     flex-direction: column;
     gap: 15px;
 }
+
 
 .form div {
     margin-bottom: 20px;  /* Aumenta el margen inferior entre los campos */
@@ -195,4 +204,24 @@ input[type="submit"]:hover {
 
 .boton-index:hover {
     background-color: #1a2eb7;
+}
+
+/* Contenedor de tabla para hacer scroll horizontal en pantallas pequeñas */
+.tabla-responsive {
+    overflow-x: auto; /* Permite deslizar horizontalmente */
+    display: block;
+    max-width: 100%;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        font-size: 14px; /* Reduce el tamaño de la fuente en móviles */
+        padding: 8px; /* Reduce el espaciado */
+    }
 }
