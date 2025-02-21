@@ -1,5 +1,5 @@
 html, body {
-    height: 100vh; /* Hace que el fondo cubra toda la pantalla */
+    height: 150vh; /* Hace que el fondo cubra toda la pantalla */
     margin: 0;
     padding: 0;
 }
@@ -224,4 +224,29 @@ input[type="submit"]:hover {
         font-size: 14px; /* Reduce el tamaño de la fuente en móviles */
         padding: 8px; /* Reduce el espaciado */
     }
+}
+
+form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 10px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #0056b3;
 }

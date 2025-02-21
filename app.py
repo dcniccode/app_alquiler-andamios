@@ -78,10 +78,19 @@ def cliente_registrado():
 @app.route('/clientes', methods=['GET', 'POST'])
 def clientes():
     if request.method == 'POST':
-        return redirect(url_for('index'))
+        search_term = request.form.get('search', '').strip()
+        if search_term:
+            lista_clientes = Cliente.query.filter(
+                (Cliente.dni.ilike(f"%{search_term}%")) |
+                (Cliente.nombre.ilike(f"%{search_term}%")) |
+                (Cliente.apellido.ilike(f"%{search_term}%")) |
+                (Cliente.telefono.ilike(f"%{search_term}%"))
+            ).all()
+        else:
+            lista_clientes = Cliente.query.all()
     else:
-        listas_clientes = Cliente.query.order_by(Cliente.fecha_registro.asc()).all()
-    return render_template('clientes.html', clientes=listas_clientes)
+        lista_clientes = Cliente.query.order_by(Cliente.fecha_registro.asc()).all()
+    return render_template('clientes.html', clientes=lista_clientes)
 
 @app.route('/editar_cliente/<int:id>', methods=['GET', 'POST'])
 def editar_cliente(id):
