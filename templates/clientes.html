@@ -19,6 +19,7 @@
             <th>Teléfono</th>
             <th>Fecha de Registro</th>
             <th>Fecha de Entrega</th>
+            <th>Monto</th>
             <th>Acciones</th>
         </tr>
         {% for cliente in clientes %}
@@ -30,6 +31,7 @@
             <td>{{ cliente.telefono }}</td>
             <td>{{ cliente.fecha_registro.strftime('%d-%m-%Y') }}</td>
             <td>{{ cliente.fecha_entrega.strftime('%d-%m-%Y') }}</td>
+            <td>{{ cliente.monto }}</td>
             <td>
                 <a href="{{ url_for('editar_cliente', id=cliente.id) }}" class="boton">Editar</a>
                 <form action="{{ url_for('eliminar_cliente', id=cliente.id) }}" method="POST" style="display:inline;">

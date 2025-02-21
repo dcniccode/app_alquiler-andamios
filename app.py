@@ -1,4 +1,5 @@
 from enum import UNIQUE
+from numbers import Number
 
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
@@ -6,10 +7,11 @@ from datetime import datetime, UTC, timedelta
 from flask_migrate import Migrate
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import DataRequired
+from wtforms.fields.numeric import FloatField
+from wtforms.validators import DataRequired, NumberRange
 
 import os
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.config['SECRET_KEY'] = 'secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -26,6 +28,7 @@ class Cliente(db.Model):
     fecha_entrega = db.Column(db.DateTime, default = datetime.now(UTC))
     telefono = db.Column(db.String(9), nullable=False)
     dias = db.Column(db.Integer, nullable=False)
+    monto = db.Column(db.Float, nullable=False, default=0.0)
 
     def calcular_fecha_entrega(self, dias):
         self.fecha_entrega = datetime.now(UTC) + timedelta(days = dias)
@@ -39,6 +42,7 @@ class ClienteForm(FlaskForm):
     apellido = StringField('Apellido', validators=[DataRequired()])
     telefono = StringField('Teléfono', validators=[DataRequired()])
     dias = IntegerField('Días a alquilar', validators=[DataRequired()])
+    monto = FloatField('Monto', validators=[DataRequired(), NumberRange(min=0, message='El monto debe ser positivo')])
     submit = SubmitField('Registrar Cliente')
 
 @app.route('/', methods=['GET', 'POST'])
@@ -54,7 +58,8 @@ def registrar_cliente():
             nombre = form.nombre.data,
             apellido = form.apellido.data,
             telefono = form.telefono.data,
-            dias = form.dias.data
+            dias = form.dias.data,
+            monto = form.monto.data
         )
 
         cliente.calcular_fecha_entrega(dias = form.dias.data)
@@ -99,6 +104,12 @@ def editar_cliente(id):
             except ValueError:
                 # Si no es un número válido, puedes manejar el error
                 print("El valor de 'dias' no es válido. Debe ser un número entero.")
+        if request.form.get('monto'):
+            try:
+                cliente.monto = float(request.form['monto'])
+            except ValueError:
+                return 'El valor del monto es inválido'
+
         nueva_fecha = request.form.get('fecha_registro')
         if nueva_fecha:
             cliente.fecha_registro = datetime.strptime(nueva_fecha, '%Y-%m-%d')
