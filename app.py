@@ -16,6 +16,12 @@ app.config['SECRET_KEY'] = 'secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "pool_size": 10,  # Máximo de conexiones abiertas
+    "pool_recycle": 1800,  # Recicla conexiones cada 30 minutos
+    "pool_pre_ping": True  # Verifica que la conexión siga activa
+}
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
