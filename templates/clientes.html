@@ -10,7 +10,7 @@
     {% if clientes|length < 1 %}
         <h4>No hay clientes registrados.</h4>
     {% else %}
-        <form method="POST">
+        <form id="search-form" method="POST">
             <input type="text" name="search" placeholder="Buscar cliente...">
             <button type="submit">Buscar</button>
         </form>
