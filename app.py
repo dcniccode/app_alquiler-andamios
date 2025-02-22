@@ -36,8 +36,10 @@ class Cliente(db.Model):
     dias = db.Column(db.Integer, nullable=False)
     monto = db.Column(db.Float, nullable=False, default=0.0)
 
-    def calcular_fecha_entrega(self, dias):
-        self.fecha_entrega = datetime.now(UTC) + timedelta(days = dias)
+    def calcular_fecha_entrega(self):
+        if not self.fecha_registro:
+            self.fecha_registro = datetime.now(UTC)  # Asegurar que tenga un valor
+        self.fecha_entrega = self.fecha_registro + timedelta(days=self.dias)
 
     def __repr__(self):
         return f'<Cliente {self.nombre} {self.apellido}>'
@@ -60,15 +62,15 @@ def registrar_cliente():
     form = ClienteForm()
     if form.validate_on_submit():
         cliente = Cliente(
-            dni = form.dni.data,
-            nombre = form.nombre.data,
-            apellido = form.apellido.data,
-            telefono = form.telefono.data,
-            dias = form.dias.data,
-            monto = form.monto.data
+            dni=form.dni.data,
+            nombre=form.nombre.data,
+            apellido=form.apellido.data,
+            telefono=form.telefono.data,
+            dias=form.dias.data if form.dias.data else 1,  # Evitar None
+            monto=form.monto.data
         )
 
-        cliente.calcular_fecha_entrega(dias = form.dias.data)
+        cliente.calcular_fecha_entrega()
 
         db.session.add(cliente)
         db.session.commit()
@@ -98,6 +100,7 @@ def clientes():
         lista_clientes = Cliente.query.order_by(Cliente.fecha_registro.asc()).all()
     return render_template('clientes.html', clientes=lista_clientes)
 
+
 @app.route('/editar_cliente/<int:id>', methods=['GET', 'POST'])
 def editar_cliente(id):
     cliente = Cliente.query.get_or_404(id)
@@ -112,22 +115,25 @@ def editar_cliente(id):
             cliente.apellido = request.form['apellido']
         if request.form['telefono']:
             cliente.telefono = request.form['telefono']
-        if request.form['dias']:
+
+        if request.form.get('fecha_registro'):
+            cliente.fecha_registro = datetime.strptime(request.form['fecha_registro'], '%Y-%m-%d')
+
+        if request.form.get('dias'):
             try:
-                cliente.dias = int(request.form['dias'])  # Convertir 'dias' a entero
-                cliente.calcular_fecha_entrega(dias=cliente.dias)
+                cliente.dias = int(request.form['dias'])
+                cliente.calcular_fecha_entrega()
             except ValueError:
-                # Si no es un número válido, puedes manejar el error
                 print("El valor de 'dias' no es válido. Debe ser un número entero.")
+
+        if cliente.fecha_registro or cliente.dias:
+            cliente.calcular_fecha_entrega()
+
         if request.form.get('monto'):
             try:
                 cliente.monto = float(request.form['monto'])
             except ValueError:
                 return 'El valor del monto es inválido'
-
-        nueva_fecha = request.form.get('fecha_registro')
-        if nueva_fecha:
-            cliente.fecha_registro = datetime.strptime(nueva_fecha, '%Y-%m-%d')
 
         try:
             db.session.commit()
@@ -136,6 +142,7 @@ def editar_cliente(id):
             return 'Hubo un error al actualizar los datos del cliente'
     else:
         return render_template('update.html', cliente=cliente)
+
 
 @app.route('/eliminar_cliente/<int:id>', methods=['POST'])
 def eliminar_cliente(id):
